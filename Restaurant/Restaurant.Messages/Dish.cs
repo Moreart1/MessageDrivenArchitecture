@@ -4,10 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant
+namespace Restaurant.Messages
 {
-    public enum State
+    public enum Dish
     {
-        Free, Booked
+        Chicken = 0,
+        Pizza = 1,
+        Pasta = 2,
+        Lasagna = 3
     }
 }
