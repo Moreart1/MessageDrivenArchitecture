@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Restaurant
 {
-    public enum TableState
+    public enum State
     {
-        Free, Broked
+        Free, Booked
     }
 }
