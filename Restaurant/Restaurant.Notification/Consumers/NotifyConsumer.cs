@@ -8,21 +8,20 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Notification.Consumers
 {
-    public class KitchenReadyConsumer : IConsumer<IKitchenReady>
+    public class NotifyConsumer : IConsumer<INotify>
     {
-
         private readonly Notifier _notifier;
 
-        public KitchenReadyConsumer(Notifier notifier)
+        public NotifyConsumer(Notifier notifier)
         {
             _notifier = notifier;
         }
 
-        public Task Consume(ConsumeContext<IKitchenReady> context)
+        public Task Consume(ConsumeContext<INotify> context)
         {
-            _notifier.Accept(context.Message.OrderId, Accepted.Kitchen);
+            _notifier.Notify(context.Message.OrderId, context.Message.ClientId, context.Message.Message);
 
-            return Task.CompletedTask;
+            return context.ConsumeCompleted;
         }
     }
 }

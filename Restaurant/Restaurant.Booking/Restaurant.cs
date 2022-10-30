@@ -24,9 +24,9 @@ namespace Restaurant.Booking
                               "Вам придет уведомление");
 
             var table = _tables.FirstOrDefault(t => t.SeatsCount > countOfPersons
-                                                        && t.State == State.Free);
+                                                        && t.State == TableState.Free);
             await Task.Delay(1000 * 5); //у нас нерасторопные менеджеры, 5 секунд они находятся в поисках стола
-            return table?.SetState(State.Booked);
+            return table?.SetState(TableState.Booked);
         }
     }
 }
