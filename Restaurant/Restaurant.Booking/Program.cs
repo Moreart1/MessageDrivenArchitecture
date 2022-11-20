@@ -22,11 +22,21 @@ namespace Restaurant.Booking
                 {
                     services.AddMassTransit(x =>
                     {
-                        x.AddConsumer<RestaurantBookingRequestConsumer>()
-                            .Endpoint(e =>
+                        x.AddConsumer<RestaurantBookingRequestConsumer>(configurator =>
+                        {
+                            configurator.UseScheduledRedelivery(r =>
                             {
-                                e.Temporary = true;
+                                r.Intervals(TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(20), TimeSpan.FromSeconds(30));
                             });
+                            configurator.UseMessageRetry(r =>
+                            {
+                                r.Incremental(3, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2));
+                            });
+                        })
+                                .Endpoint(e =>
+                                {
+                                    e.Temporary = true;
+                                });
 
                         x.AddConsumer<BookingRequestFaultConsumer>()
                             .Endpoint(e =>
@@ -49,7 +59,7 @@ namespace Restaurant.Booking
 
                     });
 
-                    //services.AddMassTransitHostedService(); не видит метод
+                    //services.AddMassTransitHostedService();
 
                     services.AddTransient<RestaurantBooking>();
                     services.AddTransient<RestaurantBookingSaga>();

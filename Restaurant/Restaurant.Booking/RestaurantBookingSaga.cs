@@ -12,7 +12,7 @@ namespace Restaurant.Booking
     public sealed class RestaurantBookingSaga : MassTransitStateMachine<RestaurantBooking>
     {
         public RestaurantBookingSaga()
-        {
+        {          
             InstanceState(x => x.CurrentState);
 
             Event(() => BookingRequested,
