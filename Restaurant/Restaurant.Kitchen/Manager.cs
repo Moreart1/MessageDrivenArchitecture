@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Kitchen
 {
-    internal class Manager
-    {
-        private readonly IBus _bus;
-
+    public class Manager
+    {      
         public Manager(IBus bus)
         {
-            _bus = bus;
+            
         }
 
         public bool CheckKitchenReady(Guid orderId, Dish? dish)
